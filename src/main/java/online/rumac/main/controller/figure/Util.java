@@ -25,7 +25,7 @@ public class Util {
     public static boolean isStraightType(PokerHand hand) {
         Integer[] cardValues = hand.getCards().stream()
                 .sorted((c1, c2) -> new CardComparator().compare(c1, c2))
-                .map(c -> c.getCardValue().ordinal())
+                .map(c -> c.getValue().ordinal())
                 .toArray(Integer[]::new);
         return cardValues[0] + 4 == cardValues[cardValues.length - 1];
     }
@@ -49,11 +49,11 @@ public class Util {
 
     public static int compareByHighCard(PokerHand hand1, PokerHand hand2) {
         List<Integer> listOrdinal1 =  hand1.getCards().stream()
-                .map(c -> c.getCardValue().ordinal())
+                .map(c -> c.getValue().ordinal())
                 .collect(Collectors.toList());
 
         List<Integer> listOrdinal2 = hand2.getCards().stream()
-                .map(c -> c.getCardValue().ordinal())
+                .map(c -> c.getValue().ordinal())
                 .collect(Collectors.toList());
 
         return findListWithBiggestMaxValue(listOrdinal1, listOrdinal2);
@@ -61,7 +61,7 @@ public class Util {
 
     public static Map<CardValue, Integer> mapCardValues(Set<Card> cards) {
         Map<CardValue, Integer> map = new HashMap<>(cards.size());
-        cards.forEach(c -> map.merge(c.getCardValue(), 1, Integer::sum));
+        cards.forEach(c -> map.merge(c.getValue(), 1, Integer::sum));
         return map;
     }
 

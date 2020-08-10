@@ -61,8 +61,9 @@ public class PokerHand extends Hand {
     }
 
     private static PokerHand buildFromStream(Stream<String> stream) {
+        Card.Builder builder = new Card.Builder();
         Set<Card> cards = stream
-                .map(Card::build)
+                .map(c -> builder.card(c).build())
                 .collect(Collectors.toSet());
         return PokerHand.build(cards);
     }

@@ -16,7 +16,7 @@ public class StraightFlush extends Figure {
     }
 
     private boolean isStraightFlush(PokerHand hand) {
-        if (hand.getCards().stream().anyMatch(c -> CardValue.A.equals(c.getCardValue()))) {
+        if (hand.getCards().stream().anyMatch(c -> CardValue.A.equals(c.getValue()))) {
             return false;
         }
         return isStraightType(hand) && ofOneSuit(hand);

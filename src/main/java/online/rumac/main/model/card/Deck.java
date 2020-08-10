@@ -22,9 +22,12 @@ public class Deck {
 
         deckBuilder.deck = new LinkedList<>();
 
+        Card.Builder builder = new Card.Builder();
+
         for (Integer value : valOrdinal) {
             for (Integer suit : suitOrdinal) {
-                deckBuilder.deck.add(Card.build(CardValue.values()[value], Suit.values()[suit]));
+                Card card = builder.value(CardValue.values()[value]).suit(Suit.values()[suit]).build();
+                deckBuilder.deck.add(card);
             }
         }
         Collections.shuffle(deckBuilder.deck);
@@ -47,7 +50,9 @@ public class Deck {
     }
 
     public Card popCard(String card) throws NoSuchCardInDeckException {
-        Card c = Card.build(card);
+        Card.Builder builder = new Card.Builder();
+
+        Card c = builder.card(card).build();
         if (deck.remove(c)) {
             return c;
         } else {

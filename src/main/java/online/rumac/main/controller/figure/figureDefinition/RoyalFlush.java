@@ -15,7 +15,7 @@ public class RoyalFlush extends Figure {
 
     private boolean isRoyalFlush(PokerHand hand) {
         if (isStraightType(hand) && ofOneSuit(hand)) {
-            return hand.getCards().stream().anyMatch(c -> CardValue.A.equals(c.getCardValue()));
+            return hand.getCards().stream().anyMatch(c -> CardValue.A.equals(c.getValue()));
         }
         return false;
     }

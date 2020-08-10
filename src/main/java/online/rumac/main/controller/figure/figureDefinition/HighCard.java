@@ -20,7 +20,7 @@ public class HighCard extends Figure {
         Map<Suit, Integer> suitCounter = new HashMap<>(Suit.values().length);
 
         for (Card card : hand.getCards()) {
-            cardValueMap.merge(card.getCardValue(), 1, Integer::sum);
+            cardValueMap.merge(card.getValue(), 1, Integer::sum);
             suitCounter.merge(card.getSuit(), 1, Integer::sum);
         }
         if (cardValueMap.size() < hand.getCards().size()) {

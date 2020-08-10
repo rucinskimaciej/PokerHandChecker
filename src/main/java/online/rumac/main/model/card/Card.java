@@ -1,35 +1,24 @@
 package online.rumac.main.model.card;
 
+import online.rumac.main.model.exceptions.IllegalCardValueException;
+
 import java.util.Objects;
 
 public class Card {
     private final Suit suit;
     private final CardValue cardValue;
 
-    private Card(CardValue cardValue, Suit suit) {
-        this.cardValue = cardValue;
-        this.suit = suit;
+    private Card(Builder builder) {
+        this.cardValue = builder.value;
+        this.suit = builder.suit;
     }
 
-    public static Card build(CardValue cardValue, Suit suit) {
-        return new Card(cardValue, suit);
+    public Suit getSuit() {
+        return suit;
     }
 
-    public static Card build(String valueSuit) {
-        String valueStr = valueSuit.substring(0, valueSuit.length() - 1);
-        String suitStr = valueSuit.substring(valueSuit.length() - 1);
-
-        CardValue value;
-        try {
-            value = CardValue.valueOf(valueStr);
-        } catch (IllegalArgumentException e) {
-            if ("T".equals(valueStr)) {
-                valueStr = "10";
-            }
-            value = CardValue.values()[Integer.parseInt(valueStr) - 2];
-        }
-        Suit suit = Suit.valueOf(suitStr);
-        return Card.build(value, suit);
+    public CardValue getValue() {
+        return cardValue;
     }
 
     @Override
@@ -39,7 +28,6 @@ public class Card {
             return card;
         }
         return null;
-
     }
 
     @Override
@@ -48,20 +36,76 @@ public class Card {
         if (!(o instanceof Card)) return false;
         Card card = (Card) o;
         return getSuit() == card.getSuit() &&
-                getCardValue() == card.getCardValue();
+                getValue() == card.getValue();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getSuit(), getCardValue());
+        return Objects.hash(getSuit(), getValue());
     }
 
-    public Suit getSuit() {
-        return suit;
-    }
 
-    public CardValue getCardValue() {
-        return cardValue;
+    public static class Builder {
+
+        private Suit suit;
+        private CardValue value;
+
+        public Builder suit(Suit suit) {
+            this.suit = suit;
+            return this;
+        }
+
+        public Builder suit(String suit) {
+            Suit suitMapped = mapStringToSuit(suit);
+            return suit(suitMapped);
+        }
+
+        private Suit mapStringToSuit(String suit) {
+            return Suit.valueOf(suit);
+        }
+
+        public Builder value(CardValue value) {
+            this.value = value;
+            return this;
+        }
+
+        public Builder value(String value) throws IllegalCardValueException {
+            CardValue valueMapped = mapStringToValue(value);
+            return value(valueMapped);
+        }
+
+        private CardValue mapStringToValue(String value) throws IllegalCardValueException { // ON WHICH LEVEL SHOULD THIS EXCEPTION BE HANDLED WITH TRY/CATCH?
+            String v = "T".equals(value) ? "10" : value;
+            int index;
+            try {
+                index = Integer.parseInt(v) - 2;
+                if (index >= 0 && index < 8) {
+                    return CardValue.values()[index];
+                }
+                return CardValue.valueOf(v);
+            } catch (IllegalArgumentException e) {
+                throw new IllegalCardValueException(String.format("%s - %s", value, "card value does not match"));
+            }
+        }
+
+        public Builder card(Card card) {
+            this.suit = card.suit;
+            this.value = card.cardValue;
+            return this;
+        }
+
+        public Builder card(String card) throws IllegalCardValueException {
+            String suitStr = card.substring(card.length() - 1);
+            String valueStr = card.substring(0, card.length() - 1);
+            this.suit = suit(suitStr).suit;
+            this.value = value(valueStr).value;
+            return this;
+        }
+
+        public Card build() {
+            return new Card(this);
+        }
+
     }
 
 }

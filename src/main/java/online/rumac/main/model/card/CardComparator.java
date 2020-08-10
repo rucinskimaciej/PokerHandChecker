@@ -6,7 +6,7 @@ public class CardComparator implements Comparator<Card> {
 
     @Override
     public int compare(Card c1, Card c2) {
-        return Integer.compare(c1.getCardValue().ordinal(), c2.getCardValue().ordinal());
+        return Integer.compare(c1.getValue().ordinal(), c2.getValue().ordinal());
     }
 
     @Override
