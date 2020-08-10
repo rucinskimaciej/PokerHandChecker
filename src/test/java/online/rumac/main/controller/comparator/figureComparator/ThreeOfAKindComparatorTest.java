@@ -3,7 +3,7 @@ package online.rumac.main.controller.comparator.figureComparator;
 import online.rumac.main.controller.comparator.handComparator.PokerHandComparator;
 import online.rumac.main.controller.figure.PokerFigure;
 import online.rumac.main.model.exceptions.NoSuchCardInDeckException;
-import online.rumac.main.model.card.Deck;
+import online.rumac.main.model.deck.Deck;
 import online.rumac.main.model.hand.PokerHand;
 import org.junit.jupiter.api.Test;
 
@@ -19,9 +19,10 @@ class ThreeOfAKindComparatorTest extends FigureComparatorTest {
     void comparator() throws NoSuchCardInDeckException {
         // given
 
-        Deck deck = Deck.build();
+        Deck deck = new Deck.Builder().build();
+        PokerHand.Builder builder = new PokerHand.Builder();
 
-        PokerHand threeOfQ = PokerHand.build(Set.of(
+        PokerHand threeOfQ = builder.build(Set.of(
                 deck.popCard("5H"),
                 deck.popCard("4H"),
                 deck.popCard("QD"),
@@ -29,7 +30,7 @@ class ThreeOfAKindComparatorTest extends FigureComparatorTest {
                 deck.popCard("QC")
         ));
 
-        PokerHand threeOf2 = PokerHand.build(Set.of(
+        PokerHand threeOf2 = builder.build(Set.of(
                 deck.popCard("2H"),
                 deck.popCard("2C"),
                 deck.popCard("2D"),

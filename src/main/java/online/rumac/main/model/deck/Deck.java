@@ -58,7 +58,6 @@ public class Deck {
             return new Deck(this);
         }
 
-        // TODO extract shuffle() to Operations class
         private List<Card> createDeck() {
             List<Integer> valueOrdinalList = IntStream.rangeClosed(0, 12).boxed().collect(Collectors.toList());
             List<Integer> suitOrdinalList = IntStream.rangeClosed(0, 3).boxed().collect(Collectors.toList());

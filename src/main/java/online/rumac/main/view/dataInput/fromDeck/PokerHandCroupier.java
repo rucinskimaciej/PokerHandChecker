@@ -1,6 +1,6 @@
 package online.rumac.main.view.dataInput.fromDeck;
 
-import online.rumac.main.model.card.Deck;
+import online.rumac.main.model.deck.Deck;
 import online.rumac.main.model.hand.PokerHand;
 import online.rumac.main.view.interfaces.Dealable;
 
@@ -15,7 +15,7 @@ public class PokerHandCroupier implements Dealable<PokerHand> {
 
     @Override
     public PokerHand deal(Deck deck, int cardCount) {
-        return PokerHand.build(deck);
+        return new PokerHand.Builder().build(deck);
     }
 
     @Override

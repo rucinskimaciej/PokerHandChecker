@@ -10,8 +10,8 @@ import java.util.Set;
 
 public abstract class Hand {
     protected final Set<Card> cards;
-    private final int handSize;
     private final Map<CardValue, Integer> cardValueMap;
+    private final int handSize;
 
     protected Hand(Set<Card> cards, int handSize) throws HandSizeException {
         if (handSize <= 0) {

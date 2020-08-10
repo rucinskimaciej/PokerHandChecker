@@ -8,23 +8,30 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 class FullHouseCheckTest {
 
     @Test
     void isFullHouse() {
         // given
+        Card.Builder cardBuilder = new Card.Builder();
+
         Set<Card> cards = Set.of(
-                Card.build(CardValue.FIVE, Suit.H),
-                Card.build(CardValue.FIVE, Suit.C),
-                Card.build(CardValue.FOUR, Suit.C),
-                Card.build(CardValue.FOUR, Suit.H),
-                Card.build(CardValue.FOUR, Suit.S)
+                cardBuilder.value(CardValue.FIVE).suit(Suit.H).build(),
+                cardBuilder.value(CardValue.FIVE).suit(Suit.C).build(),
+                cardBuilder.value(CardValue.FOUR).suit(Suit.C).build(),
+                cardBuilder.value(CardValue.FOUR).suit(Suit.H).build(),
+                cardBuilder.value(CardValue.FOUR).suit(Suit.S).build()
         );
-        PokerHand hand = PokerHand.build(cards);
+        PokerHand hand = new PokerHand.Builder().build(cards);
 
         // when
+        PokerFigure expected = PokerFigure.FULL_HOUSE;
+        PokerFigure actual = hand.getPokerFigure();
 
         // then
+        assertEquals(expected, actual);
     }
 
 }

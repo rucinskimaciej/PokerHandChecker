@@ -1,6 +1,6 @@
 package online.rumac.main.view.game.implementation.pokerHandComparingGameFromDeck;
 
-import online.rumac.main.model.card.Deck;
+import online.rumac.main.model.deck.Deck;
 import online.rumac.main.model.hand.PokerHand;
 import online.rumac.main.view.dataInput.fromDeck.PokerHandCroupier;
 import online.rumac.main.view.game.implementation.util.Util;
@@ -33,7 +33,7 @@ public class PokerHandComparingGameFromDeck implements PokerHandsComparingGame, 
     public List<List<PokerHand>> getGameList(PokerHandCroupier croupier) {
         List<List<PokerHand>> gameList = new LinkedList<>();
         for (int i = 0; i < gamesCount; i++) {
-            gameList.add((croupier).deal(Deck.build(), PokerHand.POKER_HAND_SIZE, playersCount));
+            gameList.add((croupier).deal(new Deck.Builder().build(), PokerHand.POKER_HAND_SIZE, playersCount));
         }
         return gameList;
     }

@@ -3,7 +3,7 @@ package online.rumac.main.controller.comparator.figureComparator;
 import online.rumac.main.controller.comparator.handComparator.PokerHandComparator;
 import online.rumac.main.controller.figure.PokerFigure;
 import online.rumac.main.model.exceptions.NoSuchCardInDeckException;
-import online.rumac.main.model.card.Deck;
+import online.rumac.main.model.deck.Deck;
 import online.rumac.main.model.hand.PokerHand;
 import org.junit.jupiter.api.Test;
 
@@ -20,9 +20,10 @@ class StraightComparatorTest extends FigureComparatorTest {
     void comparator() throws NoSuchCardInDeckException {
         // given
 
-        Deck deck = Deck.build();
+        Deck deck = new Deck.Builder().build();
+        PokerHand.Builder builder = new PokerHand.Builder();
 
-        PokerHand high10 = PokerHand.build(Set.of(
+        PokerHand high10 = builder.build(Set.of(
                 deck.popCard("9C"),
                 deck.popCard("8S"),
                 deck.popCard("7H"),
@@ -30,7 +31,7 @@ class StraightComparatorTest extends FigureComparatorTest {
                 deck.popCard("5C")
         ));
 
-        PokerHand high9 = PokerHand.build(Set.of(
+        PokerHand high9 = builder.build(Set.of(
                 deck.popCard("8C"),
                 deck.popCard("7S"),
                 deck.popCard("6H"),
@@ -38,7 +39,7 @@ class StraightComparatorTest extends FigureComparatorTest {
                 deck.popCard("4C")
         ));
 
-        PokerHand high8 = PokerHand.build(Set.of(
+        PokerHand high8 = builder.build(Set.of(
                 deck.popCard("8D"),
                 deck.popCard("7C"),
                 deck.popCard("6S"),
@@ -46,7 +47,7 @@ class StraightComparatorTest extends FigureComparatorTest {
                 deck.popCard("4D")
         ));
 
-        PokerHand high7 = PokerHand.build(Set.of(
+        PokerHand high7 = builder.build(Set.of(
                 deck.popCard("6C"),
                 deck.popCard("5S"),
                 deck.popCard("4H"),

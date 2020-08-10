@@ -1,7 +1,7 @@
 package online.rumac.main.view.interfaces;
 
 import online.rumac.main.model.card.Card;
-import online.rumac.main.model.card.Deck;
+import online.rumac.main.model.deck.Deck;
 
 import java.util.LinkedHashSet;
 import java.util.List;

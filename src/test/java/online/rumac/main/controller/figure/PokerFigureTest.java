@@ -1,6 +1,6 @@
 package online.rumac.main.controller.figure;
 
-import online.rumac.main.model.card.Deck;
+import online.rumac.main.model.deck.Deck;
 import online.rumac.main.model.hand.PokerHand;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
@@ -13,19 +13,19 @@ class PokerFigureTest {
 
     @BeforeEach
     void setDeck() {
-        deck = Deck.build();
+        deck = new Deck.Builder().build();
     }
 
     @RepeatedTest(value = 10)
     void check() {
         // given
-        PokerHand hand = PokerHand.build(deck);
+        PokerHand hand = new PokerHand.Builder().build(deck);
 
         // when
         PokerFigure figure = PokerFigure.check(hand);
 
         // then
-        System.out.println(String.format("%s => %s", hand, figure));
+        System.out.printf("%s => %s%n", hand, figure);
         assertNotNull(figure);
     }
 }

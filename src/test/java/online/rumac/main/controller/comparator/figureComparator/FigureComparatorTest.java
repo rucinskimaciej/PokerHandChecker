@@ -11,8 +11,9 @@ import java.util.stream.Collectors;
 class FigureComparatorTest {
 
     List<PokerHand> injectPokerFigure(PokerFigure figure, PokerHand ... hands) {
+        PokerHand.Builder builder = new PokerHand.Builder();
         return Arrays.stream(hands)
-                .map(PokerHand::build)
+                .map(builder::build)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 }

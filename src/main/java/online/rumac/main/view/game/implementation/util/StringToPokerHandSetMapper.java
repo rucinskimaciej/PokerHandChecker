@@ -15,8 +15,9 @@ public interface StringToPokerHandSetMapper {
     }
 
     private static List<PokerHand> mapList (List<List<String>> list) {
+        PokerHand.Builder builder = new PokerHand.Builder();
         return list.stream()
-                .map(PokerHand::build)
+                .map(builder::build)
                 .collect(Collectors.toList());
     }
 
