@@ -9,10 +9,6 @@ import java.util.List;
 
 public class PokerHandCroupier implements Dealable<PokerHand> {
 
-    public static List<PokerHand> dealPokerHand(Deck deck, int players) {
-        return new PokerHandCroupier().deal(deck, PokerHand.POKER_HAND_SIZE, players);
-    }
-
     @Override
     public PokerHand deal(Deck deck, int cardCount) {
         return new PokerHand.Builder().build(deck);
@@ -21,6 +17,7 @@ public class PokerHandCroupier implements Dealable<PokerHand> {
     @Override
     public List<PokerHand> deal(Deck deck, int cardCount, int players) {
         List<PokerHand> hands = new LinkedList<>();
+        deck.shuffle();
         while (hands.size() < players) {
             hands.add(deal(deck, cardCount));
         }
