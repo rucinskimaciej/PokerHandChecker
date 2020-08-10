@@ -78,16 +78,31 @@ public class Card {
             String v = "T".equals(value) ? "10" : value;
             int index;
             try {
-                index = Integer.parseInt(v) - 2;
-                if (index >= 0 && index < 8) {
-                    return CardValue.values()[index];
+                if (isNumber(v)) {
+                    index = Integer.parseInt(v) - 2;
+                    if (index >= 0 && index <= 8) {
+                        return CardValue.values()[index];
+                    }
+                } else {
+                    return CardValue.valueOf(v);
                 }
-                return CardValue.valueOf(v);
+                throw new IllegalCardValueException();
             } catch (IllegalArgumentException e) {
                 throw new IllegalCardValueException(String.format("%s - %s", value, "card value does not match"));
             }
         }
 
+        private boolean isNumber(String s) {
+            if (s == null) {
+                return false;
+            }
+            try {
+                int i = Integer.parseInt(s);
+            } catch (NumberFormatException e) {
+                return false;
+            }
+            return true;
+        }
         public Builder card(Card card) {
             this.suit = card.suit;
             this.value = card.cardValue;
